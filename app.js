@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 
 //Setting Routes
 app.use("/", require("./routes/indexRoutes"));
+app.use("/user", require("./routes/userRoutes"));
 
 //Listening TO PORT
 const PORT = process.env.PORT || 5000;
