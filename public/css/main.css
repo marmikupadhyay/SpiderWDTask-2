@@ -200,3 +200,15 @@ article .btn {
 article .btn-floating {
   margin: 0 10px !important;
 }
+
+/* ################ Article Forms ###################*/
+
+.article-form {
+  padding: 20px;
+  margin: 20px 0;
+  overflow-y: auto;
+}
+
+.article-form form .input-field input {
+  font-size: 2em;
+}

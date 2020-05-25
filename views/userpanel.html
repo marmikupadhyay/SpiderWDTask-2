@@ -67,7 +67,10 @@
               <ul class="tabs tabs-fixed-width">
                 <li class="tab"><a href="#feed">Feed</a></li>
                 <li class="tab">
-                  <a class="active" href="#dashboard">DashBoard</a>
+                  <a href="#dashboard">DashBoard</a>
+                </li>
+                <li class="tab">
+                  <a class="active" href="#add">WorkSpace</a>
                 </li>
                 <li class="tab">
                   <a href="#edit-profile">Edit Profile</a>
@@ -240,6 +243,38 @@
                     <i class="material-icons small">edit</i>
                   </a>
                 </article>
+              </div>
+            </div>
+            <div id="add" class="col s12">
+              <h1 class="sub-head">
+                Add Article
+              </h1>
+              <hr />
+              <div class="article-form z-depth-2">
+                <form action="">
+                  <div class="input-field">
+                    <i class="material-icons prefix">title</i>
+                    <input type="text" id="title" />
+                    <label for="title">Title</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">description</i>
+                    <textarea
+                      name=""
+                      id="body"
+                      class="materialize-textarea"
+                    ></textarea>
+                    <label for="body">Content</label>
+                  </div>
+                  <div class="col s12 btn-box">
+                    <button
+                      class="btn cyan accent-4 waves-effect waves-light"
+                      type="submit"
+                    >
+                      Add Post
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
             <div id="edit-profile" class="col s12"></div>
