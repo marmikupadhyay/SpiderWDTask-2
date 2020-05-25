@@ -14,7 +14,7 @@
 
 .banner {
   height: 100vh;
-  background: url(/SpiderWDTask-2/public/imgs/sidebanner.jpg);
+  background: url(../imgs/sidebanner.jpg);
   background-size: cover;
   background-position: center;
   opacity: 0.95;
