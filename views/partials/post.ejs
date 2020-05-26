@@ -13,11 +13,13 @@
   <p class="body">
     <%= post.body%>
   </p>
-  <a href="#/" class="waves-effect waves-light btn pink accent-2">Read More</a>
+  <a href="#/" class="waves-effect waves-light btn pink accent-2 more"
+    >Read More</a
+  >
   <% if(editable) { %>
   <a
-    href="#/"
-    class="waves-effect waves-light disabled btn-floating btn-large red right"
+    href="/user/delete<%= post._id %>"
+    class="waves-effect waves-light btn-floating btn-large red right"
   >
     <i class="material-icons small">close</i>
   </a>

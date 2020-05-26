@@ -36,5 +36,17 @@
 <script>
   window.addEventListener("DOMContentLoaded", e => {
     var instance = M.Tabs.init(document.querySelector(".tabs"), {});
+    document.querySelectorAll(".more").forEach(btn => {
+      btn.addEventListener("click", e => {
+        var body = e.target.parentElement.querySelector(".body");
+        if (body.style.maxHeight != "none") {
+          body.style.maxHeight = "none";
+          e.target.innerHTML = "Read Less";
+        } else {
+          body.style.maxHeight = "100px";
+          e.target.innerHTML = "Read More";
+        }
+      });
+    });
   });
 </script>
