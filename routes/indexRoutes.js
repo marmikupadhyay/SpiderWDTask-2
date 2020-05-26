@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const User = require("../models/User");
+
+//Get Request Routes
 
 router.get("/", (req, res) => {
   res.redirect("/login");
@@ -15,15 +18,27 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-router.post("/login", (req, res) => {
-  console.log(req.body.username);
-  res.redirect("/user/panel");
+//Login Handle
+router.post("/login", (req, res, next) => {
+  let errors = [];
+  const { username, password } = req.body;
+  if (!username || !password) {
+    errors.push({ msg: "Fill All Fields" });
+    res.render("login", { errors });
+  } else {
+    passport.authenticate("local", {
+      successRedirect: "/user/panel",
+      faliureRedirect: "/login",
+      failureFlash: true
+    })(req, res, next);
+  }
 });
+
+//Handling Signups
 
 router.post("/signup", (req, res) => {
   let errors = [];
   const { username, mail, pass } = req.body;
-  // res.redirect("/login");
   if (!username || !mail || !pass) {
     errors.push({ msg: "Fill All Fields" });
   }
@@ -56,7 +71,12 @@ router.post("/signup", (req, res) => {
               newUser
                 .save()
                 .then(user => {
-                  res.redirect("/user/panel");
+                  //Redirecting to login page
+                  req.flash(
+                    "success_msg",
+                    "You are now registered and can log in"
+                  );
+                  res.redirect("/login");
                 })
                 .catch(err => {
                   console.log(err);
@@ -71,4 +91,12 @@ router.post("/signup", (req, res) => {
   }
 });
 
+// Logout
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "You are logged out");
+  res.redirect("/login");
+});
+
+//Exporting Router
 module.exports = router;
