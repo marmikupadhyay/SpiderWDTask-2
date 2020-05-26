@@ -70,6 +70,10 @@ form .btn {
   margin: 10px;
 }
 
+.error {
+  font-size: 25px;
+}
+
 /* ###################### USER PANEL ########################## */
 
 .sec-1 {
