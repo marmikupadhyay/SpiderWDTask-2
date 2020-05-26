@@ -3,5 +3,6 @@
 </h1>
 <hr />
 <div class="area row">
-  <%- include('./post.ejs') %> <%- include('./post.ejs') %>
+  <% userPosts.forEach(post=>{ %> <%- include('./post.ejs',{post,editable:true})
+  %> <% }); %>
 </div>

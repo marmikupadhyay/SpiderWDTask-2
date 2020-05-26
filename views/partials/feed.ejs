@@ -1,3 +1,4 @@
 <div class="area row">
-  <%- include('./post.ejs'); %> <%- include('./post.ejs'); %>
+  <% allPosts.forEach(post=>{ %> <%-
+  include('./post.ejs',{post,editable:false}); %> <% }); %>
 </div>
