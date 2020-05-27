@@ -49,6 +49,13 @@
       theForm.submit();
     }
 
+    //Function to change color of the text in edit form
+    function iTextcolor(id) {
+      var color = document.getElementById(id + "c").value;
+      for (var i = 0; i < frames.length; i++) {
+        frames[i].document.execCommand("foreColor", false, color);
+      }
+    }
     //Setting up the edit button to work
     document.querySelectorAll(".edit").forEach(btn => {
       btn.addEventListener("click", e => {
@@ -64,6 +71,10 @@
             submit_form2(`${art.querySelector(".editor").name}`);
           });
 
+          //Setting eventlistner to the color btn
+          art.querySelector(".textcolor").addEventListener("click", e => {
+            iTextcolor(`${art.querySelector(".editor").name}`);
+          });
           //Replacing content in iframe with the current post body
           window.frames[
             `${art.querySelector(".editor").name}`
