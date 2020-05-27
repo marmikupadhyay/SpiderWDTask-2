@@ -5,18 +5,25 @@
         <i class="material-icons large">edit</i> Blogstagram</a
       >
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>
+        <li class="">
           <div class="">
-            <form action="/user/panel" class="search-form" method="POST">
+            <form
+              action="/user/panel"
+              class="search-form"
+              method="POST"
+              autocomplete="off"
+            >
               <div class="input-field">
                 <i class="material-icons tiny prefix">search</i>
                 <input
                   type="text"
-                  id="search"
-                  class="white-text"
+                  id="autocomplete-input"
+                  class="white-text autocomplete"
                   name="search"
                 />
-                <label for="search" class="white-text">Search</label>
+                <label for="autocomplete-input" class="white-text"
+                  >Search</label
+                >
               </div>
             </form>
           </div>

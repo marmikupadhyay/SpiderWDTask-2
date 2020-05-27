@@ -14,15 +14,30 @@
         information.I am convenient because I require little markup to use
         effectively.
       </p>
-      <div class="chip left z-depth-2">Followers - 100</div>
-      <div class="chip right z-depth-2">Following - 20</div>
+      <div class="chip left z-depth-2">
+        Followers - <%=user.followers.length %>
+      </div>
+      <div class="chip right z-depth-2">
+        Following - <%=user.following.length %>
+      </div>
     </div>
     <% if(!admin) { %>
     <div class="card-action-box">
-      <a class="btn-floating btn-large waves-effect waves-light pink lighten-1"
+      <% if(user.followers.includes(viewer._id)) { %>
+      <a
+        href="/user/unfollow<%=user.id %>"
+        class="btn-floating btn-large waves-effect waves-light pink lighten-1"
+        ><i class="material-icons">remove</i>
+      </a>
+      <span>Unfollow</span>
+      <% } else { %>
+      <a
+        href="/user/follow<%=user.id %>"
+        class="btn-floating btn-large waves-effect waves-light pink lighten-1"
         ><i class="material-icons">add</i>
       </a>
       <span>Follow</span>
+      <% } %>
     </div>
     <% } %>
   </div>

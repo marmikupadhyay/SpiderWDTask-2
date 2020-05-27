@@ -111,6 +111,7 @@ router.get("/panel/:name", ensureAuthenticated, (req, res) => {
               var currentPost = {};
               res.render("otherUser", {
                 user: otherUser,
+                viewer: req.user,
                 allPosts: userPosts, //sending all posts
                 userPosts, //sending user specific posts
                 currentPost
@@ -121,6 +122,78 @@ router.get("/panel/:name", ensureAuthenticated, (req, res) => {
             });
         }
       }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+//Handling Followers
+
+router.get("/follow:id", ensureAuthenticated, (req, res) => {
+  //Adding To followers
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        followers: req.user._id
+      }
+    }
+  )
+    .then(user => {
+      res.redirect(`/user/panel/${user.username}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  //Adding to following
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $push: {
+        following: req.params.id
+      }
+    }
+  )
+    .then(user => {
+      res.redirect(`/user/panel/${user.username}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+//Handling Unfollow
+
+router.get("/unfollow:id", ensureAuthenticated, (req, res) => {
+  //Removing from followers
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $pull: {
+        followers: req.user._id
+      }
+    }
+  )
+    .then(user => {
+      res.redirect(`/user/panel/${user.username}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  //Removing from following
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $pull: {
+        following: req.params.id
+      }
+    }
+  )
+    .then(user => {
+      res.redirect(`/user/panel/${user.username}`);
     })
     .catch(err => {
       console.log(err);
