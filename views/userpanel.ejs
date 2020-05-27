@@ -40,12 +40,35 @@
   window.addEventListener("DOMContentLoaded", e => {
     var instance = M.Tabs.init(document.querySelector(".tabs"), {});
 
+    //Function to submit the edit form
+    function submit_form2(id) {
+      var frames = window.frames;
+      var theForm = document.getElementById(id);
+      theForm.elements["body"].value = frames[id].document.body.innerHTML;
+      theForm.querySelector(".editor").name = "blank";
+      theForm.submit();
+    }
+
+    //Setting up the edit button to work
     document.querySelectorAll(".edit").forEach(btn => {
       btn.addEventListener("click", e => {
         var art = e.target.parentElement.parentElement;
         art.querySelector(".more").click();
+        var editbox = art.querySelector(".editbox");
         if (art.querySelector(".editbox").classList.contains("hide")) {
+          //Showing the hidden form
           art.querySelector(".editbox").classList.remove("hide");
+
+          //Setting eventlistner to the save btn
+          art.querySelector(".submit2").addEventListener("click", e => {
+            submit_form2(`${art.querySelector(".editor").name}`);
+          });
+
+          //Replacing content in iframe with the current post body
+          window.frames[
+            `${art.querySelector(".editor").name}`
+          ].document.body.innerHTML = art.querySelector(".bodyarea").value;
+
           e.target.innerHTML = "done";
         } else {
           art.querySelector(".editbox").className += " hide";
@@ -54,6 +77,7 @@
       });
     });
 
+    //Setting click listners for read more
     document.querySelectorAll(".more").forEach(btn => {
       btn.addEventListener("click", e => {
         var body = e.target.parentElement.querySelector(".body");

@@ -3,21 +3,49 @@
 </h1>
 <hr />
 <div class="article-form z-depth-2">
-  <form action="/user/add" method="POST">
+  <form action="/user/add" method="POST" id="myform">
     <div class="input-field">
       <i class="material-icons prefix">title</i>
       <input type="text" id="title" name="title" />
       <label for="title">Title</label>
     </div>
     <div class="input-field">
-      <i class="material-icons prefix">description</i>
-      <textarea name="body" id="body" class="materialize-textarea"></textarea>
-      <label for="body">Content</label>
+      <textarea
+        name="body"
+        id="body"
+        class="materialize-textarea hide"
+      ></textarea>
+      <h4>Content</h4>
+      <div class="iconbar">
+        <a
+          class="btn-floating btn-large waves-effect waves-light pink lighten-1 bold"
+          ><i class="material-icons">format_bold</i></a
+        ><a
+          class="btn-floating btn-large waves-effect waves-light blue lighten-1 italic"
+          ><i class="material-icons">format_italic</i></a
+        ><a
+          class="btn-floating btn-large waves-effect waves-light green lighten-1 underline"
+          ><i class="material-icons">format_underline</i></a
+        ><a
+          class="btn-floating btn-large waves-effect waves-light yellow lighten-1 link"
+          ><i class="material-icons">link</i></a
+        >
+        <a
+          class="btn-floating btn-large waves-effect waves-light black lighten-1 unlink"
+          ><i class="material-icons">link_off</i></a
+        ><a
+          class="btn-floating btn-large waves-effect waves-light violet lighten-1 insimg"
+          ><i class="material-icons">insert_photo</i></a
+        >
+      </div>
+
+      <iframe name="richTextField" id="richTextField" class="editor"></iframe>
     </div>
     <div class="col s12 btn-box">
-      <button class="btn cyan accent-4 waves-effect waves-light" type="submit">
+      <a class="btn cyan accent-4 waves-effect waves-light submit">
         Add Post
-      </button>
+      </a>
     </div>
   </form>
 </div>
+<script src="/js/editor.js"></script>

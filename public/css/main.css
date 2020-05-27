@@ -210,6 +210,10 @@ article .btn-floating {
   margin: 0 10px !important;
 }
 
+article img {
+  width: 70%;
+  height: auto;
+}
 /* ################ Article Forms ###################*/
 
 .article-form {
@@ -220,4 +224,21 @@ article .btn-floating {
 
 .article-form form .input-field input {
   font-size: 2em;
+}
+
+.editor {
+  width: 90%;
+  margin: 0 5%;
+  margin-top: 20px;
+  border: 1px solid black;
+  height: 50vh;
+  overflow-y: auto;
+}
+
+.iconbar {
+  margin-top: 20px !important;
+}
+
+.iconbar a {
+  margin: 0 10px;
 }
