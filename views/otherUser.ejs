@@ -1,0 +1,45 @@
+<%- include('./partials/nav.ejs'); %>
+<section class="sec-1" id="sec-1">
+  <div class="row">
+    <%- include('./partials/sidebar.ejs',{admin:false}); %>
+    <div class="col s9 offset-s3 content">
+      <div class="row">
+        <div class="col s12 main-content">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab">
+              <a class="active" href="#feed">Recent Posts</a>
+            </li>
+            <li class="tab">
+              <a href="#dashboard">All Posts</a>
+            </li>
+          </ul>
+        </div>
+        <div id="feed" class="col s12">
+          <%- include('./partials/recentPosts.ejs'); %>
+        </div>
+        <div id="dashboard" class="col s12">
+          <%- include('./partials/feed.ejs'); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", e => {
+    var instance = M.Tabs.init(document.querySelector(".tabs"), {});
+
+    document.querySelectorAll(".more").forEach(btn => {
+      btn.addEventListener("click", e => {
+        var body = e.target.parentElement.querySelector(".body");
+        if (body.style.maxHeight != "none") {
+          body.style.maxHeight = "none";
+          e.target.innerHTML = "Read Less";
+        } else {
+          body.style.maxHeight = "100px";
+          e.target.innerHTML = "Read More";
+        }
+      });
+    });
+  });
+</script>

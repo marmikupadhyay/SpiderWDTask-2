@@ -17,11 +17,13 @@
       <div class="chip left z-depth-2">Followers - 100</div>
       <div class="chip right z-depth-2">Following - 20</div>
     </div>
+    <% if(!admin) { %>
     <div class="card-action-box">
       <a class="btn-floating btn-large waves-effect waves-light pink lighten-1"
         ><i class="material-icons">add</i>
       </a>
       <span>Follow</span>
     </div>
+    <% } %>
   </div>
 </div>

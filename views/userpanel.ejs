@@ -1,7 +1,7 @@
 <%- include('./partials/nav.ejs'); %>
 <section class="sec-1" id="sec-1">
   <div class="row">
-    <%- include('./partials/sidebar.ejs'); %>
+    <%- include('./partials/sidebar.ejs',{admin:true}); %>
     <div class="col s9 offset-s3 content">
       <div class="row">
         <div class="col s12 main-content">
@@ -21,7 +21,8 @@
           </ul>
         </div>
         <div id="feed" class="col s12">
-          <%- include('./partials/feed.ejs'); %>
+          <%- include('./partials/messages.ejs'); %> <%-
+          include('./partials/feed.ejs'); %>
         </div>
         <div id="dashboard" class="col s12">
           <%- include('./partials/dashboard.ejs'); %>

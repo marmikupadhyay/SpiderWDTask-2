@@ -140,6 +140,11 @@ form .btn {
   margin-left: 10px;
 }
 
+.search-form {
+  display: flex;
+  flex-direction: row;
+}
+
 /* ################## MAIN AREA ################ */
 
 .main-content {

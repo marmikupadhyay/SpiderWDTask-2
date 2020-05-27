@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 const { ensureAuthenticated } = require("../config/auth");
 
@@ -64,7 +65,7 @@ router.get("/delete:id", ensureAuthenticated, (req, res) => {
 });
 
 //Handling post editing
-router.post("/edit:id", (req, res) => {
+router.post("/edit:id", ensureAuthenticated, (req, res) => {
   const { title, body } = req.body;
   var updatedPost = {
     $set: {
@@ -85,4 +86,44 @@ router.post("/edit:id", (req, res) => {
     });
 });
 
+//From the Search Bar
+router.post("/panel", ensureAuthenticated, (req, res) => {
+  res.redirect(`/user/panel/${req.body.search}`);
+});
+
+//Handling Other User Requests
+router.get("/panel/:name", ensureAuthenticated, (req, res) => {
+  //Finding the user with the given name
+  User.findOne({ username: req.params.name })
+    .then(otherUser => {
+      //If user doesnt exist
+      if (!otherUser) {
+        res.render("404", { user: req.user });
+      } else {
+        //Check if its same user
+        if (req.user._id.equals(otherUser._id)) {
+          res.redirect("/user/panel"); //Redirects to panel
+        } else {
+          //If user exists and is diffrent then finding all his posts
+          Post.find({ authorName: req.params.name })
+            .sort("-date")
+            .then(userPosts => {
+              var currentPost = {};
+              res.render("otherUser", {
+                user: otherUser,
+                allPosts: userPosts, //sending all posts
+                userPosts, //sending user specific posts
+                currentPost
+              });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 module.exports = router;
