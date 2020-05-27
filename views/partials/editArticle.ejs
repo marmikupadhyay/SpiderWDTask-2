@@ -3,25 +3,22 @@
 </h1>
 <hr />
 <div class="article-form z-depth-2">
-  <form action="/user/add" method="POST">
+  <form action="/user/edit<%=post._id%>" method="POST">
     <div class="input-field">
       <i class="material-icons prefix">title</i>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        value="<% currentPost!={}?currentPost.title:'' %>"
-      />
+      <input type="text" id="title" name="title" value="<%=post.title%>" />
       <label for="title">Title</label>
     </div>
     <div class="input-field">
       <i class="material-icons prefix">description</i>
-      <textarea name="body" id="body" class="materialize-textarea"></textarea>
+      <textarea name="body" id="body" class="materialize-textarea">
+<%= post.body%></textarea
+      >
       <label for="body">Content</label>
     </div>
     <div class="col s12 btn-box">
       <button class="btn cyan accent-4 waves-effect waves-light" type="submit">
-        Add Post
+        Save
       </button>
     </div>
   </form>

@@ -14,10 +14,12 @@ router.get("/panel", ensureAuthenticated, (req, res) => {
       Post.find({ author: req.user._id })
         .sort("-date")
         .then(userPosts => {
+          var currentPost = {};
           res.render("userpanel", {
             user: req.user,
             allPosts, //sending all posts
-            userPosts //sending user specific posts
+            userPosts, //sending user specific posts
+            currentPost
           });
         })
         .catch(err => {
@@ -58,6 +60,28 @@ router.get("/delete:id", ensureAuthenticated, (req, res) => {
     })
     .catch(err => {
       err;
+    });
+});
+
+//Handling post editing
+router.post("/edit:id", (req, res) => {
+  const { title, body } = req.body;
+  var updatedPost = {
+    $set: {
+      title,
+      body,
+      author: req.user._id,
+      authorName: req.user.username,
+      date: Date.now()
+    }
+  };
+  Post.findOneAndUpdate({ _id: req.params.id }, updatedPost)
+    .then(post => {
+      req.flash("success_msg", "Post Edited");
+      res.redirect("/user/panel");
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
