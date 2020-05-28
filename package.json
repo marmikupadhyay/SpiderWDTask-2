@@ -4,7 +4,8 @@
   "description": "This is to hold the contents of the second (0+2) Web Dev task of Spider - SOP",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
