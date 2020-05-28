@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 
 const Post = require("../models/Post");
 const User = require("../models/User");
@@ -48,7 +49,8 @@ router.post("/add", ensureAuthenticated, (req, res) => {
       res.redirect("/user/panel");
     })
     .catch(err => {
-      console.log(err);
+      req.flash("error_msg", "Fill All fields");
+      res.redirect("/user/panel");
     });
 });
 
@@ -82,7 +84,8 @@ router.post("/edit:id", ensureAuthenticated, (req, res) => {
       res.redirect("/user/panel");
     })
     .catch(err => {
-      console.log(err);
+      req.flash("error_msg", "Fill All fields");
+      res.redirect("/user/panel");
     });
 });
 
@@ -198,5 +201,58 @@ router.get("/unfollow:id", ensureAuthenticated, (req, res) => {
     .catch(err => {
       console.log(err);
     });
+});
+
+//Handling Edit Profile
+router.post("/edit/profile", ensureAuthenticated, (req, res) => {
+  const { username, password, about } = req.body;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) throw err;
+
+      //Set the new hashed password
+      var updatedUser = {
+        $set: {
+          username: username,
+          password: hash,
+          about: about
+        }
+      };
+      //Find the user with that username
+      User.findOne({ username: username })
+        .then(user => {
+          if (user && !user._id.equals(req.user._id)) {
+            // If exists and is not the user themselves redirect
+            req.flash("error_msg", "Username Already Taken");
+            res.redirect("/user/panel");
+          } else {
+            //Else update the username
+            User.findOneAndUpdate({ _id: req.user._id }, updatedUser)
+              .then(user => {
+                //Update the posts that have the username to change the author
+                Post.updateMany(
+                  { author: req.user._id },
+                  { authorName: username }
+                )
+                  .then(posts => {
+                    req.flash("success_msg", "Profile Edited");
+                    res.redirect("/user/panel");
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              })
+              .catch(err => {
+                console.log(err);
+                req.flash("error_msg", "Fill All fields");
+                res.redirect("/user/panel");
+              });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  });
 });
 module.exports = router;

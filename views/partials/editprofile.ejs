@@ -1,0 +1,35 @@
+<h1 class="sub-head">
+  Edit your profile
+</h1>
+<hr />
+<div class="article-form z-depth-2">
+  <form action="/user/edit/profile" method="POST">
+    <div class="input-field">
+      <i class="material-icons prefix">title</i>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        value="<%= user.username %>"
+      />
+      <label for="username">Set Username</label>
+    </div>
+    <div class="input-field">
+      <i class="material-icons prefix">vpn_key</i>
+      <input type="password" id="password" name="password" />
+      <label for="password">Set Password</label>
+    </div>
+    <div class="input-field">
+      <i class="material-icons prefix">description</i>
+      <textarea name="about" id="about" class="materialize-textarea">
+<%= user.about %></textarea
+      >
+      <label for="about">About Me</label>
+    </div>
+    <div class="col s12 btn-box">
+      <button class="btn cyan accent-4 waves-effect waves-light" type="submit">
+        Save Profile
+      </button>
+    </div>
+  </form>
+</div>

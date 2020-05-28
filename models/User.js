@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  about: {
+    type: String,
+    default: "Hey There Checkout my posts."
+  },
   followers: {
     type: [mongoose.Schema.Types.ObjectId]
   },
