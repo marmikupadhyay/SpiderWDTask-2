@@ -13,10 +13,13 @@ const app = express();
 require("./config/passport")(passport);
 
 //Connecting to mongodb
-mongoose.connect("mongodb://localhost/spider2", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
+mongoose.connect(
+  "mongodb+srv://marmik:mar0712@cluster0-otaph.mongodb.net/test?retryWrites=true&w=majority",
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  }
+);
 let db = mongoose.connection;
 
 db.once("open", () => {
