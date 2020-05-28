@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../models/User");
+const { ensureAuthenticated } = require("../config/auth");
 
 //Get Request Routes
 
@@ -89,6 +90,15 @@ router.post("/signup", (req, res) => {
         console.log(err);
       });
   }
+});
+
+//User Api for search bar
+router.get("/api/users", ensureAuthenticated, (req, res) => {
+  User.find({})
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => console.log(err));
 });
 
 // Logout
