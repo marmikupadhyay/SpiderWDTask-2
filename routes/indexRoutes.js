@@ -3,15 +3,15 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../models/User");
-const { ensureAuthenticated } = require("../config/auth");
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
 //Get Request Routes
 
-router.get("/", (req, res) => {
+router.get("/", forwardAuthenticated, (req, res) => {
   res.redirect("/login");
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", forwardAuthenticated, (req, res) => {
   res.render("login");
 });
 
@@ -27,10 +27,20 @@ router.post("/login", (req, res, next) => {
     errors.push({ msg: "Fill All Fields" });
     res.render("login", { errors });
   } else {
-    passport.authenticate("local", {
-      successRedirect: "/user/panel",
-      faliureRedirect: "/login",
-      failureFlash: true
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        errors.push({ msg: "Invalid Credentials" });
+        return res.render("login", { errors });
+      }
+      req.logIn(user, function (err) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect("/user/panel");
+      });
     })(req, res, next);
   }
 });
